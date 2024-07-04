@@ -30,9 +30,8 @@ from io import BytesIO
 router = APIRouter()
 
 # Twilio credentials
-account_sid = 'ACc882424ebd68dd3f40eb4eda1998fbac'  # Replace with your Twilio Account SID
-auth_token = '2e8b2724834ed1099cd1ed1b30bcf161'     # Replace with your Twilio Auth Token
-
+account_sid = 'Replace with your Twilio Account SID'  
+auth_token = 'Replace with your Twilio Auth Token'     
 client = Client(account_sid, auth_token)
 validator = RequestValidator(auth_token)
 
