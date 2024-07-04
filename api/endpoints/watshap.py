@@ -23,15 +23,18 @@ import uuid
 from fastapi.responses import JSONResponse
 import requests
 from io import BytesIO
-
+from dotenv import load_dotenv
+import os
 
 
 
 router = APIRouter()
 
 # Twilio credentials
-account_sid = 'ACc882424ebd68dd3f40eb4eda1998fbac'  # Replace with your Twilio Account SID
-auth_token = '2e8b2724834ed1099cd1ed1b30bcf161'     # Replace with your Twilio Auth Token
+load_dotenv()  # This loads the variables from .env
+
+account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 
 client = Client(account_sid, auth_token)
 validator = RequestValidator(auth_token)
