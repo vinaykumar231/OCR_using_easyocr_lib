@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException
 from ..models.adhar import save_upload_file
-from pan_card_ocr import extract_text_from_image,extract_name, extract_dob,extract_pan_number
+from pan_card_ocr import extract_text_from_image,extract_pan_name, extract_pan_dob,extract_pan_number
 import os
 import uuid
 import shutil
@@ -23,8 +23,8 @@ def upload_pan_image(file: UploadFile = File(...), db: Session = Depends(get_db)
         extracted_text = extract_text_from_image(file_path)
 
         # Parse extracted details
-        name = extract_name(extracted_text)
-        dob = extract_dob(extracted_text)
+        name = extract_pan_name(extracted_text)
+        dob = extract_pan_dob(extracted_text)
         pan_number = extract_pan_number(extracted_text)
         existing_pan_number = db.query(PanCard).filter(PanCard.pan_number == pan_number).first()
         if existing_pan_number:

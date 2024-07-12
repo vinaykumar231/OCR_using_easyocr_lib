@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException
 from ..models.adhar import save_upload_file
-from adhar_ocr import extract_text_from_image,extract_name, extract_dob,extract_gender,extract_aadhar_number
+from adhar_ocr import extract_text_from_image,extract_aadhaar_name, extract_aadhaar_dob,extract_aadhaar_gender,extract_aadhaar_number
 import os
 import uuid
 import shutil
@@ -22,10 +22,10 @@ def upload_aadhaar_image(file: UploadFile = File(...), db: Session = Depends(get
         extracted_text = extract_text_from_image(file_path)
 
         # Parse extracted details
-        name = extract_name(extracted_text)
-        dob = extract_dob(extracted_text)
-        gender = extract_gender(extracted_text)
-        aadhar_number = extract_aadhar_number(extracted_text)
+        name = extract_aadhaar_name(extracted_text)
+        dob = extract_aadhaar_dob(extracted_text)
+        gender = extract_aadhaar_gender(extracted_text)
+        aadhar_number = extract_aadhaar_number(extracted_text)
         existing_adhar_number = db.query(AadhaarCard).filter(AadhaarCard.aadhar_number == aadhar_number).first()
         if existing_adhar_number:
             raise HTTPException(status_code=400, detail=f"{aadhar_number} aadhar number already submitted")

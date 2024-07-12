@@ -21,6 +21,7 @@ class AadhaarCard(Base):
     gender = Column(String(255))
     phone_number= Column(String(255))
     aadhar_number = Column(String(255), unique=True)
+    confirmation_status= Column(String(255))
 
 
 def save_upload_file(upload_file: UploadFile) -> str:
